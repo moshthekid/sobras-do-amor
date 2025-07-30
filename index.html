@@ -2,7 +2,7 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>OOOPS!?</title>
   <style>
     html, body {
@@ -10,92 +10,130 @@
       padding: 0;
       height: 100%;
       overflow: hidden;
-      font-family: Arial, sans-serif;
-      color: white;
+      background: black;
+      font-family: 'Arial', sans-serif;
     }
 
     video#bg-video {
       position: fixed;
-      top: 0; left: 0;
+      right: 0;
+      bottom: 0;
       min-width: 100%;
       min-height: 100%;
-      width: auto;
-      height: auto;
-      object-fit: cover;
       z-index: -1;
-      filter: brightness(0.5);
     }
 
-    .content {
+    .logo {
+      width: 120px;
+      margin: 20px auto 0;
+      display: block;
+    }
+
+    .center {
       position: absolute;
       top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
+      width: 100%;
       text-align: center;
-      padding: 20px;
-    }
-
-    h1 {
-      font-size: 32px;
-      margin-bottom: 30px;
+      transform: translateY(-50%);
     }
 
     .btn {
-      background: rgba(255, 255, 255, 0.1);
-      border: 2px solid white;
+      background-color: #ffffffcc;
+      border: none;
       padding: 15px 30px;
-      border-radius: 8px;
-      color: white;
-      text-decoration: none;
       font-size: 18px;
-      font-weight: bold;
-      margin: 10px;
       cursor: pointer;
-      transition: 0.3s;
+      border-radius: 8px;
+      font-weight: bold;
+      transition: background 0.3s;
     }
 
     .btn:hover {
-      background: white;
-      color: black;
+      background-color: #fff;
+    }
+
+    .phrase {
+      position: absolute;
+      font-size: 20px;
+      opacity: 0;
+      transition: opacity 2s ease;
+      white-space: nowrap;
+      font-weight: bold;
     }
   </style>
 </head>
 <body>
 
-  <!-- 🎬 Vídeo de fundo -->
-  <video id="bg-video" autoplay muted loop playsinline>
+  <!-- Vídeo de fundo -->
+  <video id="bg-video" autoplay loop muted>
     <source src="video.mp4" type="video/mp4">
     Seu navegador não suporta vídeo.
   </video>
 
-  <!-- 🔊 Áudio (ativado por clique) -->
-  <audio id="audio" loop>
-    <source src="audio.mp3" type="audio/mpeg">
-    Seu navegador não suporta áudio.
-  </audio>
+  <!-- Logo -->
+  <img src="logo.png" alt="Logo" class="logo" />
 
-  <!-- Conteúdo -->
-  <div class="content">
-    <h1>PROBLEMAS NO AMOR ?</h1>
-
-    <!-- Botão que toca som + abre link -->
+  <!-- Botão central -->
+  <div class="center">
     <button class="btn" onclick="tocarAudioEIr()">CLIQUE E SANE SUAS MÁGOAS</button>
   </div>
 
-  <script>
-    function tocarAudioEIr() {
-      const audio = document.getElementById('audio');
-      if (audio && audio.paused) {
-        audio.play().catch((e) => {
-          console.log('Erro ao tocar áudio:', e);
-        });
-      }
+  <!-- Áudio -->
+  <audio id="audio" loop>
+    <source src="audio.mp3" type="audio/mpeg">
+  </audio>
 
-      // Delay curto pra evitar bloqueio do navegador
-      setTimeout(() => {
-        window.open("https://distrokid.com/hyperfollow/moshthekid/sobras-do-amor", "_blank");
-      }, 100);
+  <!-- JavaScript -->
+  <script>
+    const frases = [
+      "Não posso mais suportar dor", "Eu não ligo mais", "Morrer sozinho pra me sentir vivo",
+      "Me ajude a consertar", "Vivendo no estresse", "Perambulando na zona leste",
+      "Problemas de noite", "Me perdendo com o tempo", "Ficar lento pra esquecer",
+      "Sinceramente, não preciso de amor", "Compare o que restou", "O amor me aquece",
+      "Veneno valorizado demais", "Rosas pra te conquistar", "Me chame de leão",
+      "Quero mais você", "Me perco no seu olhar", "Planejar um espaço-tempo",
+      "Tomé tomou um mé", "Superficiais demais", "Pra eu me sentir melhor"
+    ];
+
+    function randomPosition(max) {
+      return Math.floor(Math.random() * max);
     }
+
+    function createPhraseElement(text, color) {
+      const el = document.createElement('div');
+      el.classList.add('phrase');
+      el.textContent = text;
+      el.style.left = randomPosition(window.innerWidth - 200) + "px";
+      el.style.top = randomPosition(window.innerHeight - 50) + "px";
+      el.style.color = color;
+      document.body.appendChild(el);
+      setTimeout(() => { el.style.opacity = 1; }, 100);
+      setTimeout(() => {
+        el.style.opacity = 0;
+        setTimeout(() => document.body.removeChild(el), 2000);
+      }, 4000);
+    }
+
+    function startPhraseLoop() {
+      const video = document.getElementById('bg-video');
+      setInterval(() => {
+        const frase = frases[Math.floor(Math.random() * frases.length)];
+        let color = "white"; // Sempre branco
+        createPhraseElement(frase, color);
+      }, 2500);
+    }
+
+    function tocarAudioEIr() {
+      const audio = document.getElementById("audio");
+      if (audio.paused) {
+        audio.play().catch(err => console.log("Erro ao tocar:", err));
+      }
+      window.open("https://distrokid.com/hyperfollow/moshthekid/sobras-do-amor", "_blank");
+    }
+
+    window.onload = () => {
+      startPhraseLoop();
+    };
   </script>
 
 </body>
