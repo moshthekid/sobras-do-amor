@@ -9,14 +9,30 @@
       margin: 0;
       padding: 0;
       height: 100%;
-      background-color: black;
-      color: white;
+      overflow: hidden;
       font-family: Arial, sans-serif;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      color: white;
+    }
+
+    video#bg-video {
+      position: fixed;
+      top: 0; left: 0;
+      min-width: 100%;
+      min-height: 100%;
+      width: auto;
+      height: auto;
+      object-fit: cover;
+      z-index: -1;
+      filter: brightness(0.5);
+    }
+
+    .content {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
       text-align: center;
-      flex-direction: column;
+      padding: 20px;
     }
 
     h1 {
@@ -46,16 +62,25 @@
 </head>
 <body>
 
-  <!-- Áudio -->
+  <!-- 🎬 Vídeo de fundo -->
+  <video id="bg-video" autoplay muted loop playsinline>
+    <source src="video.mp4" type="video/mp4">
+    Seu navegador não suporta vídeo.
+  </video>
+
+  <!-- 🔊 Áudio (ativado por clique) -->
   <audio id="audio" loop>
     <source src="audio.mp3" type="audio/mpeg">
     Seu navegador não suporta áudio.
   </audio>
 
-  <h1>PROBLEMAS NO AMOR ?</h1>
+  <!-- Conteúdo -->
+  <div class="content">
+    <h1>PROBLEMAS NO AMOR ?</h1>
 
-  <!-- Botão que toca som + abre pré-save -->
-  <button class="btn" onclick="tocarAudioEIr()">CLIQUE E SANE SUAS MÁGOAS</button>
+    <!-- Botão que toca som + abre link -->
+    <button class="btn" onclick="tocarAudioEIr()">CLIQUE E SANE SUAS MÁGOAS</button>
+  </div>
 
   <script>
     function tocarAudioEIr() {
@@ -66,7 +91,7 @@
         });
       }
 
-      // Pequeno delay para garantir que o áudio inicie antes de abrir o link
+      // Delay curto pra evitar bloqueio do navegador
       setTimeout(() => {
         window.open("https://distrokid.com/hyperfollow/moshthekid/sobras-do-amor", "_blank");
       }, 100);
