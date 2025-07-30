@@ -24,17 +24,21 @@
     }
 
     .logo {
-      width: 120px;
-      margin: 20px auto 0;
+      width: 220px;
+      max-width: 90vw;
+      margin: 40px auto 0;
       display: block;
+      z-index: 2;
+      position: relative;
     }
 
     .center {
       position: absolute;
-      top: 50%;
+      top: 60%;
       width: 100%;
       text-align: center;
       transform: translateY(-50%);
+      z-index: 1;
     }
 
     .btn {
@@ -59,13 +63,15 @@
       transition: opacity 2s ease;
       white-space: nowrap;
       font-weight: bold;
+      color: white;
+      z-index: 1;
     }
   </style>
 </head>
 <body>
 
   <!-- Vídeo de fundo -->
-  <video id="bg-video" autoplay loop muted>
+  <video id="bg-video" autoplay loop muted playsinline>
     <source src="video.mp4" type="video/mp4">
     Seu navegador não suporta vídeo.
   </video>
@@ -75,7 +81,7 @@
 
   <!-- Botão central -->
   <div class="center">
-    <button class="btn" onclick="tocarAudioEIr()">CLIQUE E SANE SUAS MÁGOAS</button>
+    <button class="btn" onclick="tocarAudioEIr()">CLIQUE PARA SANAR SUAS MÁGOAS</button>
   </div>
 
   <!-- Áudio -->
@@ -95,18 +101,32 @@
       "Tomé tomou um mé", "Superficiais demais", "Pra eu me sentir melhor"
     ];
 
-    function randomPosition(max) {
-      return Math.floor(Math.random() * max);
+    function randomPosition(max, buffer = 0) {
+      return Math.floor(Math.random() * (max - buffer));
     }
 
-    function createPhraseElement(text, color) {
+    function createPhraseElement(text) {
       const el = document.createElement('div');
       el.classList.add('phrase');
       el.textContent = text;
-      el.style.left = randomPosition(window.innerWidth - 200) + "px";
-      el.style.top = randomPosition(window.innerHeight - 50) + "px";
-      el.style.color = color;
+
+      // Evitar topo da logo e meio da tela onde está o botão
+      const topArea = [0, window.innerHeight * 0.25];
+      const bottomArea = [window.innerHeight * 0.7, window.innerHeight - 30];
+
+      let top = 0;
+      if (Math.random() < 0.5) {
+        top = randomPosition(topArea[1] - topArea[0]) + topArea[0];
+      } else {
+        top = randomPosition(bottomArea[1] - bottomArea[0]) + bottomArea[0];
+      }
+
+      const left = randomPosition(window.innerWidth - 200);
+
+      el.style.left = `${left}px`;
+      el.style.top = `${top}px`;
       document.body.appendChild(el);
+
       setTimeout(() => { el.style.opacity = 1; }, 100);
       setTimeout(() => {
         el.style.opacity = 0;
@@ -115,11 +135,9 @@
     }
 
     function startPhraseLoop() {
-      const video = document.getElementById('bg-video');
       setInterval(() => {
         const frase = frases[Math.floor(Math.random() * frases.length)];
-        let color = "white"; // Sempre branco
-        createPhraseElement(frase, color);
+        createPhraseElement(frase);
       }, 2500);
     }
 
