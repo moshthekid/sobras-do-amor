@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>OOPS!?</title>
+  <title>OOOPS!?</title>
   <style>
     html, body {
       margin: 0;
@@ -24,7 +24,7 @@
       margin-bottom: 30px;
     }
 
-    .btn, .btn-som {
+    .btn {
       background: rgba(255, 255, 255, 0.1);
       border: 2px solid white;
       padding: 15px 30px;
@@ -38,7 +38,7 @@
       transition: 0.3s;
     }
 
-    .btn:hover, .btn-som:hover {
+    .btn:hover {
       background: white;
       color: black;
     }
@@ -46,21 +46,32 @@
 </head>
 <body>
 
-  <!-- Áudio (precisa de clique para iniciar) -->
+  <!-- Áudio -->
   <audio id="audio" loop>
     <source src="audio.mp3" type="audio/mpeg">
     Seu navegador não suporta áudio.
   </audio>
 
-  <h1>PROBLEMAS NO AMOR?</h1>
+  <h1>PROBLEMAS NO AMOR ?</h1>
 
-  <!-- Botão para ativar o som -->
-  <button class="btn-som" onclick="document.getElementById('audio').play()">🔊 Ativar Som</button>
+  <!-- Botão que toca som + abre pré-save -->
+  <button class="btn" onclick="tocarAudioEIr()">CLIQUE E SANE SUAS MÁGOAS</button>
 
-  <!-- Botão para pré-save -->
-  <a class="btn" href="https://distrokid.com/hyperfollow/moshthekid/sobras-do-amor" target="_blank">
-    🔗 Fazer Pré-Save
-  </a>
+  <script>
+    function tocarAudioEIr() {
+      const audio = document.getElementById('audio');
+      if (audio && audio.paused) {
+        audio.play().catch((e) => {
+          console.log('Erro ao tocar áudio:', e);
+        });
+      }
+
+      // Pequeno delay para garantir que o áudio inicie antes de abrir o link
+      setTimeout(() => {
+        window.open("https://distrokid.com/hyperfollow/moshthekid/sobras-do-amor", "_blank");
+      }, 100);
+    }
+  </script>
 
 </body>
 </html>
