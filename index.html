@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Sobras do Amor – Pré-Save</title>
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      overflow: hidden;
+      font-family: 'Arial', sans-serif;
+      background: black;
+      color: white;
+    }
+
+    video#bg-video {
+      position: fixed;
+      top: 0; left: 0;
+      min-width: 100%;
+      min-height: 100%;
+      object-fit: cover;
+      z-index: -1;
+      filter: brightness(0.5);
+    }
+
+    .content {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      text-align: center;
+    }
+
+    .btn {
+      background: rgba(255, 255, 255, 0.1);
+      border: 2px solid white;
+      padding: 15px 30px;
+      border-radius: 8px;
+      color: white;
+      text-decoration: none;
+      font-size: 18px;
+      font-weight: bold;
+      transition: 0.3s;
+    }
+
+    .btn:hover {
+      background: white;
+      color: black;
+    }
+
+    h1 {
+      font-size: 32px;
+      margin-bottom: 30px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Vídeo de fundo -->
+  <video id="bg-video" autoplay muted loop playsinline>
+    <source src="video.mp4" type="video/mp4">
+    Seu navegador não suporta vídeo.
+  </video>
+
+  <!-- Áudio em loop -->
+  <audio autoplay loop>
+    <source src="audio.mp3" type="audio/mpeg">
+    Seu navegador não suporta áudio.
+  </audio>
+
+  <div class="content">
+    <h1>Sobras do Amor – Pré-Save Disponível</h1>
+    <a class="btn" href="https://distrokid.com/hyperfollow/moshthekid/sobras-do-amor" target="_blank">
+      🔗 Fazer Pré-Save
+    </a>
+  </div>
+
+</body>
+</html>
