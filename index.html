@@ -2,38 +2,29 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>PROBLEMAS NO AMOR?</title>
   <style>
     html, body {
       margin: 0;
       padding: 0;
       height: 100%;
-      overflow: hidden;
-      font-family: 'Arial', sans-serif;
-      background: black;
+      background-color: black;
       color: white;
-    }
-
-    video#bg-video {
-      position: fixed;
-      top: 0; left: 0;
-      min-width: 100%;
-      min-height: 100%;
-      object-fit: cover;
-      z-index: -1;
-      filter: brightness(0.5);
-    }
-
-    .content {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
+      font-family: Arial, sans-serif;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       text-align: center;
+      flex-direction: column;
     }
 
-    .btn {
+    h1 {
+      font-size: 32px;
+      margin-bottom: 30px;
+    }
+
+    .btn, .btn-som {
       background: rgba(255, 255, 255, 0.1);
       border: 2px solid white;
       padding: 15px 30px;
@@ -42,39 +33,34 @@
       text-decoration: none;
       font-size: 18px;
       font-weight: bold;
+      margin: 10px;
+      cursor: pointer;
       transition: 0.3s;
     }
 
-    .btn:hover {
+    .btn:hover, .btn-som:hover {
       background: white;
       color: black;
-    }
-
-    h1 {
-      font-size: 32px;
-      margin-bottom: 30px;
     }
   </style>
 </head>
 <body>
 
-  <!-- Vídeo de fundo -->
-  <video id="bg-video" autoplay muted loop playsinline>
-    <source src="video.mp4" type="video/mp4">
-    Seu navegador não suporta vídeo.
-  </video>
-
-  <!-- Áudio em loop -->
-  <audio autoplay loop>
+  <!-- Áudio (precisa de clique para iniciar) -->
+  <audio id="audio" loop>
     <source src="audio.mp3" type="audio/mpeg">
+    Seu navegador não suporta áudio.
   </audio>
 
-  <div class="content">
-    <h1>Sobras do Amor – Pré-Save Disponível</h1>
-    <a class="btn" href="https://distrokid.com/hyperfollow/moshthekid/sobras-do-amor" target="_blank">
-      🔗 Fazer Pré-Save
-    </a>
-  </div>
+  <h1>Sobras do Amor – Pré-Save Disponível</h1>
+
+  <!-- Botão para ativar o som -->
+  <button class="btn-som" onclick="document.getElementById('audio').play()">🔊 Ativar Som</button>
+
+  <!-- Botão para pré-save -->
+  <a class="btn" href="https://distrokid.com/hyperfollow/moshthekid/sobras-do-amor" target="_blank">
+    🔗 Fazer Pré-Save
+  </a>
 
 </body>
 </html>
