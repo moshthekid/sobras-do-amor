@@ -4,6 +4,10 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>OOOPS!?</title>
+
+  <!-- Fonte estilo relógio digital -->
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&display=swap" rel="stylesheet">
+
   <style>
     html, body {
       margin: 0;
@@ -24,12 +28,28 @@
     }
 
     .logo {
-      width: 300px; /* AUMENTADO */
+      width: 300px;
       max-width: 90vw;
       margin: 40px auto 0;
       display: block;
       z-index: 2;
       position: relative;
+    }
+
+    /* TIMER estilo LED */
+    #countdown {
+      font-size: 42px;
+      color: #ff3300;
+      text-align: center;
+      margin: 20px auto;
+      background-color: rgba(0, 0, 0, 0.7);
+      padding: 15px 30px;
+      border-radius: 12px;
+      display: block;
+      max-width: fit-content;
+      font-family: 'Orbitron', monospace;
+      letter-spacing: 2px;
+      text-shadow: 0 0 10px #ff3300, 0 0 20px #ff3300;
     }
 
     .center {
@@ -65,95 +85,7 @@
       font-weight: bold;
       color: white;
       z-index: 1;
-      text-transform: uppercase; /* TUDO EM MAIÚSCULO */
+      text-transform: uppercase;
     }
   </style>
 </head>
-<body>
-
-  <!-- Vídeo de fundo -->
-  <video id="bg-video" autoplay muted loop playsinline style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; object-fit: cover; z-index: -1;">
-  <source src="video.mp4" type="video/mp4">
-  Seu navegador não suporta vídeo.
-</video>
-
-  <!-- Logo -->
-  <img src="logo.png" alt="Logo" class="logo" />
-
-  <!-- Botão central -->
-  <div class="center">
-    <button class="btn" onclick="tocarAudioEIr()">CLIQUE E SANE SUAS MÁGOAS</button>
-  </div>
-
-  <!-- Áudio -->
-  <audio id="audio" loop>
-    <source src="audio.mp3" type="audio/mpeg">
-  </audio>
-
-  <!-- JavaScript -->
-  <script>
-    const frases = [
-      "Não posso mais suportar dor", "Eu não ligo mais", "Morrer sozinho pra me sentir vivo",
-      "Me ajude a consertar", "Vivendo no estresse", "Perambulando na zona leste",
-      "Problemas de noite", "Me perdendo com o tempo", "Ficar lento pra esquecer",
-      "Sinceramente, não preciso de amor", "Compare o que restou", "O amor me aquece",
-      "Veneno valorizado demais", "Rosas pra te conquistar", "Me chame de leão",
-      "Quero mais você", "Me perco no seu olhar", "Planejar um espaço-tempo",
-      "Tomé tomou um mé", "Superficiais demais", "Pra eu me sentir melhor"
-    ];
-
-    function randomPosition(max, buffer = 0) {
-      return Math.floor(Math.random() * (max - buffer));
-    }
-
-    function createPhraseElement(text) {
-      const el = document.createElement('div');
-      el.classList.add('phrase');
-      el.textContent = text.toUpperCase(); // Transforma em MAIÚSCULO aqui também
-
-      // Evitar topo da logo e meio da tela onde está o botão
-      const topArea = [0, window.innerHeight * 0.25];
-      const bottomArea = [window.innerHeight * 0.7, window.innerHeight - 30];
-
-      let top = 0;
-      if (Math.random() < 0.5) {
-        top = randomPosition(topArea[1] - topArea[0]) + topArea[0];
-      } else {
-        top = randomPosition(bottomArea[1] - bottomArea[0]) + bottomArea[0];
-      }
-
-      const left = randomPosition(window.innerWidth - 200);
-
-      el.style.left = `${left}px`;
-      el.style.top = `${top}px`;
-      document.body.appendChild(el);
-
-      setTimeout(() => { el.style.opacity = 1; }, 100);
-      setTimeout(() => {
-        el.style.opacity = 0;
-        setTimeout(() => document.body.removeChild(el), 2000);
-      }, 4000);
-    }
-
-    function startPhraseLoop() {
-      setInterval(() => {
-        const frase = frases[Math.floor(Math.random() * frases.length)];
-        createPhraseElement(frase);
-      }, 2500);
-    }
-
-    function tocarAudioEIr() {
-      const audio = document.getElementById("audio");
-      if (audio.paused) {
-        audio.play().catch(err => console.log("Erro ao tocar:", err));
-      }
-      window.open("https://distrokid.com/hyperfollow/moshthekid/sobras-do-amor", "_blank");
-    }
-
-    window.onload = () => {
-      startPhraseLoop();
-    };
-  </script>
-
-</body>
-</html>
